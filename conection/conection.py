@@ -7,7 +7,7 @@ class Conection:
         self.db=connect(
             host='127.0.0.1',
             user='postgres',
-            password='177196',
+            password='123456',
             database='sistema_colegio',
             port='5432'
         )
