@@ -1,4 +1,4 @@
-from controllers.periodo import PeriodoController
+from Controllers.periodo import PeriodoController
 
 
 class MenuPeriodo:

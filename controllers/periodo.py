@@ -1,4 +1,4 @@
-from models.periodo import ModelPeriodo
+from Models.periodo import ModelPeriodo
 from otro.validar import Validacion
 
 class PeriodoController:
@@ -106,8 +106,8 @@ class PeriodoController:
             try:
                 while(True): 
                     opcion = int(input('Ingresa el ID del periodo escolar : '))
-                    if(self.validacion_class.validar_id_correcto(opcion)):
-                        return opcion
+                    if(self.validacion_class.validar_id_correcto_periodo(opcion)):
+                        return opcion 
                     else:
                         print('ID ingresado no existe')
                 break

@@ -1,4 +1,4 @@
-from controllers.profesor import profesorController
+from Controllers.profesor import profesorController
 class Menuprofesor:
     def __init__(self):
         self.profesor=profesorController()

@@ -1,4 +1,4 @@
-from lista_salones.salones import Salones
+from Models.salones import Salones
 
 class SalonesController:
     def __init__(self):

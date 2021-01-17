@@ -1,6 +1,7 @@
 import re
-from models.alumno import ModelAlumno
-from models.periodo import ModelPeriodo
+from Models.alumno import ModelAlumno
+from Models.periodo import ModelPeriodo
+from Models.profesor import ModelProfesor
 from datetime import datetime
 
 
@@ -8,6 +9,7 @@ class Validacion:
     def __init__(self):
         self.alumno=ModelAlumno()
         self.periodo=ModelPeriodo()
+        self.profesor=ModelProfesor()
 
     @classmethod
     def validar_texto(cls,Comentario):
@@ -57,7 +59,7 @@ class Validacion:
             else:
                 print("Error-Correo ingresado no válido")
 
-    def validar_id_correcto(self,codigo_ingresado):
+    def validar_id_correcto_alumno(self,codigo_ingresado):
         alumnos=self.alumno.get_alumno_all('alumno_id')
         valor=False
         for alumno in alumnos:
@@ -65,6 +67,20 @@ class Validacion:
                 valor=True
         return valor
 
+    def validar_id_correcto_periodo(self,codigo_ingresado):
+        periodos=self.periodo.get_periodo_all('id_periodo')
+        valor=False
+        for periodo in periodos:
+            if(periodo[0]==codigo_ingresado):
+                valor=True
+        return valor
+    def validar_id_correcto_profesor(self,codigo_ingresado):
+        periodos=self.profesor.get_profesor_all('profesor_id')
+        valor=False
+        for periodo in periodos:
+            if(periodo[0]==codigo_ingresado):
+                valor=True
+        return valor
     def validar_nombre_correcto(self,nombre_ingresado):
         alumnos=self.alumno.get_alumno_all('alumno_id')
         valor=False
@@ -72,8 +88,8 @@ class Validacion:
             if(nombre_ingresado in alumno[1]):
                 valor=True
         return valor
-
-    def validar_fecha_inicio(fecha_desde):
+    @staticmethod
+    def validar_fecha_inicio( fecha_desde):
         while True:
             try:
                 fecha_desde = input("Ingresa la fecha de Inicio de Periodo en el formato YYYY-MM-DD: ")
@@ -82,8 +98,8 @@ class Validacion:
             except ValueError:
                 print("Fecha inválida")
         
-
-    def validar_fecha_fin(fecha_hasta):
+    @staticmethod
+    def validar_fecha_fin( fecha_hasta):
         while True:
             try:
                 fecha_hasta = input("Ingresa la fecha de Fin de Periodo en el formato YYYY-MM-DD: ")
@@ -93,13 +109,7 @@ class Validacion:
                 print("Fecha inválida")
         
 
-    def validar_id_correcto(self,codigo_ingresado):
-        periodos=self.periodo.get_periodo_all('id_periodo')
-        valor=False
-        for periodo in periodos:
-            if(periodo[0]==codigo_ingresado):
-                valor=True
-        return valor
+
 
     def validar_periodo_correcto(self,periodo_ingresado):
         periodos=self.periodo.get_periodo_all('id_periodo')

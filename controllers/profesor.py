@@ -1,4 +1,4 @@
-from models.profesor import ModelProfesor
+from Models.profesor import ModelProfesor
 from otro.validar import Validacion
 
 class profesorController:
@@ -114,7 +114,7 @@ class profesorController:
             try:
                 while(True): 
                     opcion = int(input('Ingresa el ID del profesor : '))
-                    if(self.validacion_class.validar_id_correcto(opcion)):
+                    if(self.validacion_class.validar_id_correcto_profesore(opcion)):
                         return opcion
                     else:
                         print('ID ingresado no existe')

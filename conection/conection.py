@@ -1,13 +1,13 @@
 from psycopg2 import connect
 
-
+ 
 class Conection:
     def __init__(self,table_name):
         self.table_name=table_name
         self.db=connect(
             host='127.0.0.1',
             user='postgres',
-            password='123456',
+            password='177196',#Esto es lo unico que se tiene que cambiar
             database='sistema_colegio',
             port='5432'
         )
