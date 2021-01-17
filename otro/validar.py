@@ -1,10 +1,14 @@
 import re
 from models.alumno import ModelAlumno
+from models.periodo import ModelPeriodo
+from datetime import datetime
 
 
 class Validacion:
     def __init__(self):
         self.alumno=ModelAlumno()
+        self.periodo=ModelPeriodo()
+
     @classmethod
     def validar_texto(cls,Comentario):
         texto=""
@@ -52,6 +56,7 @@ class Validacion:
                 return correo
             else:
                 print("Error-Correo ingresado no válido")
+
     def validar_id_correcto(self,codigo_ingresado):
         alumnos=self.alumno.get_alumno_all('alumno_id')
         valor=False
@@ -68,6 +73,38 @@ class Validacion:
                 valor=True
         return valor
 
+    def validar_fecha_inicio(fecha_desde):
+        while True:
+            try:
+                fecha_desde = input("Ingresa la fecha de Inicio de Periodo en el formato YYYY-MM-DD: ")
+                datetime.strptime(fecha_desde, '%Y-%m-%d')
+                return fecha_desde
+            except ValueError:
+                print("Fecha inválida")
+        
 
+    def validar_fecha_fin(fecha_hasta):
+        while True:
+            try:
+                fecha_hasta = input("Ingresa la fecha de Fin de Periodo en el formato YYYY-MM-DD: ")
+                datetime.strptime(fecha_hasta, '%Y-%m-%d')
+                return fecha_hasta
+            except ValueError:
+                print("Fecha inválida")
+        
 
-            
+    def validar_id_correcto(self,codigo_ingresado):
+        periodos=self.periodo.get_periodo_all('id_periodo')
+        valor=False
+        for periodo in periodos:
+            if(periodo[0]==codigo_ingresado):
+                valor=True
+        return valor
+
+    def validar_periodo_correcto(self,periodo_ingresado):
+        periodos=self.periodo.get_periodo_all('id_periodo')
+        valor=False
+        for periodo in periodos:
+            if(periodo_ingresado in periodo[1]):
+                valor=True
+        return valor
