@@ -1,7 +1,12 @@
 import re
-from Models.alumno import ModelAlumno
-from Models.periodo import ModelPeriodo
-from Models.profesor import ModelProfesor
+from b_Models.alumno import ModelAlumno
+from b_Models.periodo import ModelPeriodo
+from b_Models.profesor import ModelProfesor
+from b_Models.curso import ModelCurso
+from b_Models.profesor_curso import Model_Profesor_Curso
+from b_Models.salones import Salones
+from b_Models.malla_curricular import Model_Malla_Curricular
+from b_Models.notas import Notas
 from datetime import datetime
 
 
@@ -10,7 +15,25 @@ class Validacion:
         self.alumno=ModelAlumno()
         self.periodo=ModelPeriodo()
         self.profesor=ModelProfesor()
+        self.cursos=ModelCurso()
+        self.profesor_cursos=Model_Profesor_Curso()
+        self.salones=Salones()
+        self.malla_curricular=Model_Malla_Curricular()
+        self.notas=Notas()
 
+    def validar_nota(self):
+        while True:
+            try:
+                while True:
+                    nota=float(input(f"Ingrese la nota:\n"))
+                    if nota>=0 and nota<=20:
+                        break
+                    else:
+                        print("Ingrese una nota entre 0 a 20")
+                break
+            except ValueError:
+                print(f'Ingrese un numero valido')
+        return nota
     @classmethod
     def validar_texto(cls,Comentario):
         texto=""
@@ -67,6 +90,29 @@ class Validacion:
                 valor=True
         return valor
 
+    def validar_id_correcto_curso(self,codigo_ingresado):
+        lista_curso=self.cursos.get_cursos_all('curso_id')
+        valor=False
+        for curso in lista_curso:
+            if(curso[0]==codigo_ingresado):
+                valor=True
+        return valor
+
+    def validar_id_correcto_malla_curricular(self,codigo_ingresado):
+        lista_mallas_curriculares=self.malla_curricular.get_malla_curricular_all('id_malla')
+        valor=False
+        for malla in lista_mallas_curriculares:
+            if(malla[0]==codigo_ingresado):
+                valor=True
+        return valor
+    def validar_id_correcto_notas(self,codigo_ingresado):
+        lista_notas=self.notas.get_nota_all('id_nota')
+        valor=False
+        for nota in lista_notas:
+            if(nota[0]==codigo_ingresado):
+                valor=True
+        return valor
+
     def validar_id_correcto_periodo(self,codigo_ingresado):
         periodos=self.periodo.get_periodo_all('id_periodo')
         valor=False
@@ -74,6 +120,15 @@ class Validacion:
             if(periodo[0]==codigo_ingresado):
                 valor=True
         return valor
+
+    def validar_id_correcto_profesor_curso(self,codigo_ingresado):
+        lista_profesor_curso=self.profesor_cursos.get_profesor_curso_all('id_profesor_curso')
+        valor=False
+        for prof_cur in lista_profesor_curso:
+            if(prof_cur[0]==codigo_ingresado):
+                valor=True
+        return valor
+
     def validar_id_correcto_profesor(self,codigo_ingresado):
         periodos=self.profesor.get_profesor_all('profesor_id')
         valor=False
@@ -81,11 +136,45 @@ class Validacion:
             if(periodo[0]==codigo_ingresado):
                 valor=True
         return valor
+
+
+    def validar_id_correcto_salon(self,codigo_ingresado):
+        lista_salones=self.salones.get_salones_all('id_salon')
+        valor=False
+        for salon in lista_salones:
+            if(salon[0]==codigo_ingresado):
+                valor=True
+        return valor
+
+
+
+    def validar_periodo_correcto(self,periodo_ingresado):
+        periodos=self.periodo.get_periodo_all('id_periodo')
+        valor=False
+        for periodo in periodos:
+            if(periodo_ingresado in periodo[1]):
+                valor=True
+        return valor
+
     def validar_nombre_correcto(self,nombre_ingresado):
         alumnos=self.alumno.get_alumno_all('alumno_id')
         valor=False
         for alumno in alumnos:
             if(nombre_ingresado in alumno[1]):
+                valor=True
+        return valor
+    def validar_nombreCurso_correcto(self,nombre_ingresado):
+        lista_curso=self.cursos.get_cursos_all('curso_id')
+        valor=False
+        for curso in lista_curso:
+            if(nombre_ingresado in curso[1]):
+                valor=True
+        return valor
+    def validar_nombresalon_correcto(self,nombre_ingresado):
+        lista_salones=self.cursos.get_cursos_all('id_salon')
+        valor=False
+        for salon in lista_salones:
+            if(nombre_ingresado in salon[1]):
                 valor=True
         return valor
     @staticmethod
@@ -111,10 +200,4 @@ class Validacion:
 
 
 
-    def validar_periodo_correcto(self,periodo_ingresado):
-        periodos=self.periodo.get_periodo_all('id_periodo')
-        valor=False
-        for periodo in periodos:
-            if(periodo_ingresado in periodo[1]):
-                valor=True
-        return valor
+    
